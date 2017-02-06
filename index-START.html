@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS FuckYou Kit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">FU</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">CK</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">Y</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">O</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">U</span>
+    </div>
+
+
+  <audio data-key="65" src="fcku_sounds/fck_0.mp3"></audio>
+  <audio data-key="83" src="fcku_sounds/fck_1.mp3"></audio>
+  <audio data-key="68" src="fcku_sounds/fck_2.mp3"></audio>
+  <audio data-key="70" src="fcku_sounds/fck_3.mp3"></audio>
+  <audio data-key="71" src="fcku_sounds/fck_4.mp3"></audio>
+
+<script>
+  window.addEventListener('keydown', function (e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if (!audio) return;
+    audio.currentTime = 0;
+    audio.play();
+    key.classList.add('playing');
+
+    function romoveTransition(e) {
+      if(e.propertyName !== 'transform') return;
+      key.classList.remove('playing');
+    }
+
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => key.addEventListener('transitionend', romoveTransition));
+  });
+</script>
+
+
+</body>
+</html>
